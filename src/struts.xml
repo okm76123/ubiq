@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" 
+"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	
+<!-- REST bean -->
+	<bean type="org.apache.struts2.dispatcher.mapper.ActionMapper" name="fixedRest" class="util.FixedRestActionMapper" />
+	
+<!-- spring constant -->
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	
+<!-- REST constant -->
+	<constant name="struts.convention.package.locators" value="restful" />
+ 	<constant name="struts.convention.action.suffix" value="Controller" />
+	<constant name="struts.convention.action.mapAllMatches" value="true" />
+	<constant name="struts.convention.default.parent.package" value="rest-default" />
+	
+	<constant name="struts.mapper.class" value="composite"/>
+	<constant name="struts.mapper.composite" value="fixedRest,struts" /> 
+	<constant name="struts.action.extension" value="action,,xhtml,xml,json" />
+	
+	<package name="default" extends="struts-default" namespace="">
+		
+<!-- Result types -->
+		<result-types>
+			<result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult" />
+			<result-type name="chart" class="org.apache.struts2.dispatcher.ChartResult" />
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+		
+<!-- Interceptors -->
+		<interceptors>
+			<interceptor-stack name="customedStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="profiling">
+					<param name="profilingKey">profiling</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="customedStack"/>
+ 		
+ 
+<!-- Global Results -->
+		<global-results>
+			<result name="error">/chapter11/error.jsp</result>
+			<result name="error">/chapter11/error_on_execute2.jsp</result>
+			<result name="error">/chapter11/error_with_exception.jsp</result>
+		</global-results>
+ 		
+<!-- Global Exceptions -->
+		<!--  
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception" />
+    		<exception-mapping result="error" exception="java.lang.NumberFormatException" />
+	    </global-exception-mappings>
+ 		-->
+ 		
+<!-- Actions -->
+
+		<action name="addUserInfoForm" class="action.UserInfoAction" method="addForm">
+			<result>/jsp/addUserInfo.jsp</result>
+		</action>
+		
+		<action name="addUserInfo" class="action.UserInfoAction" method="add">
+			<result type="chain">login</result>
+			<result name="input">/jsp/addUserInfo.jsp</result>
+		</action>
+		
+		<action name="addDeviceInfoForm" class="action.DeviceInfoAction" method="addForm">
+			<result>/jsp/addDeviceInfo.jsp</result>
+		</action>
+		
+		<action name="addDeviceInfo" class="action.DeviceInfoAction" method="add">
+			<result>/jsp/addDeviceInfo.jsp</result>
+			<result name="input">/jsp/addDeviceInfo.jsp</result>
+		</action>
+		
+		<action name="login" class="action.LoginAction"> 
+			<result type="redirectAction">
+				<param name="actionName">myDevice</param>
+				<param name="userid">${userid}</param>
+			</result>
+			<result name="input">/index.jsp</result>
+		</action>
+		
+		<action name="myDevice" class="action.DeviceInfoAction">
+			<result>/jsp/myDevice.jsp</result>
+		</action>
+		
+		<action name="checkemail" class="action.UserInfoAction" method="checkemail">
+			<result type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentType">text/xml</param>
+				<param name="bufferSize">4096</param>
+			</result>	
+		</action>
+		
+	</package>
+
+</struts>

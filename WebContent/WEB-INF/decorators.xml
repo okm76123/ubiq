@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<decorators defaultdir="/chapter10/sitemesh/decorators">
+
+	<!-- Any urls that are excluded will never be decorated by Sitemesh -->
+    <excludes>
+        <pattern>/debug.jsp</pattern>
+        <pattern>/style/*</pattern>
+        <pattern>/script/*</pattern>
+        <pattern>/img/*</pattern>
+        <pattern>/dojo/*</pattern>
+        <pattern>/struts/*</pattern>
+        <pattern>/exclude.jsp</pattern>
+        <pattern>/exclude/*</pattern>
+    </excludes>
+
+    <decorator name="layout" page="layout.jsp">
+        <pattern>/sitemesh*</pattern>
+    </decorator>
+    
+    <decorator name="panel" page="layoutPanel.jsp"/>
+    <decorator name="header" page="layoutHeader.jsp"/>
+    <decorator name="footer" page="layoutFooter.jsp"/>
+
+</decorators>

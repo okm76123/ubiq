@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+		"http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+		
+<validators>
+	
+	<field name="checkemailResult">
+		<field-validator type="fieldexpression">
+			<param name="expression">checkemailResult.equals('available') || checkemailResult.equals('')</param>
+			<message>email address is already used</message>
+		</field-validator>
+	</field>
+	
+	<field name="userInfo.email">
+		<field-validator type="requiredstring">
+			<message>email address is required.</message>
+		</field-validator>
+		<field-validator type="email">
+			<message>email address is not valid</message>
+		</field-validator>
+	</field>
+	
+	<field name="userInfo.password">
+		<field-validator type="requiredstring">
+			<message>password is required.</message>
+		</field-validator>
+	</field>
+	
+	<field name="reEnterPassword">
+		<field-validator type="requiredstring">
+			<message>re-enter password is required.</message>
+		</field-validator>
+		<field-validator type="fieldexpression">
+			<param name="expression">userInfo.password == reEnterPassword</param>
+			<message>passwords are not equal.</message>
+		</field-validator>
+	</field>
+
+
+	<field name="userInfo.firstName">
+		<field-validator type="requiredstring">
+			<message>first name is required.</message>
+		</field-validator>
+	</field>
+	
+	<field name="userInfo.lastName">
+		<field-validator type="requiredstring">
+			<message>last name is required.</message>
+		</field-validator>
+	</field>
+
+</validators>
