@@ -56,7 +56,14 @@
     		<exception-mapping result="error" exception="java.lang.NumberFormatException" />
 	    </global-exception-mappings>
  		-->
- 		
+
+
+<!-- Test Actions -->
+		<action name="requestEsp" class="action.test.RequestEspAction">
+			<result>/test/requestEsp.jsp</result>
+		</action>
+
+
 <!-- Actions -->
 
 		<action name="addUserInfoForm" class="action.UserInfoAction" method="addForm">

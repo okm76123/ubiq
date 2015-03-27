@@ -10,22 +10,19 @@
 	<title>Insert title here</title>
 	<script language="javascript" src="script/ajax.js"></script>
 	<script language="javascript">
-		window.onload = function() {
-		}
+		
 		function on() {
 			var req = newXMLHttpRequest();
-			req.open("GET", "http://172.25.87.236?ON", true); 
+			req.open("GET", "http://172.25.66.38?ON ", true); 
 			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			req.timeout = 100;
 			req.send();
 			var body = document.getElementById('body');
-			body.innerHTML+="<p>On</p>";
-			var req = newXMLHttpRequest();
-			
+			body.innerHTML+="<p>Off</p>";
 		}
 		function off() {
 			var req = newXMLHttpRequest();
-			req.open("GET", "http://172.25.87.236?OFF", true); 
+			req.open("GET", "http://172.25.66.38?OFF", true); 
 			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			req.timeout = 100;
 			req.send();
