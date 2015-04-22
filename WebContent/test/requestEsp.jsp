@@ -8,44 +8,67 @@
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Insert title here</title>
-	<script language="javascript" src="script/ajax.js"></script>
-	<script language="javascript">
+	
+	<!--[if lt IE 9]>
+			<script src="script/html5shiv.js"></script>
+	<![endif]--> 
+	
+	<script type="text/javascript" src="script/jquery-1.11.2.min.js"></script>
+	
+	<script type="text/javascript">
 		
-		function on() {
-			var req = newXMLHttpRequest();
-			//req.onreadystatechange = getReadyStateHandler(req, updateTemperature);
-			req.open("GET", "http://172.25.72.150?ON ", true); 
-			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			req.timeout = 2000;
-			req.send();
-			var body = document.getElementById('body');
-			body.innerHTML+="<p>On</p>";
-		}
-		function off() {
-			var req = newXMLHttpRequest();
-			//req.onreadystatechange = getReadyStateHandler(req, updateTemperature);
-			req.open("GET", "http://172.25.72.150?OFF", true); 
-			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			req.timeout = 100;
-			req.send();
-			var body = document.getElementById('body');
-			body.innerHTML+="<p>Off</p>";
-		}
+		var espIp;
+		var espStatus;
 		
-		function updateTemperature(xml) {
+		$(function() {
+			$("#on").click(function() {
+				$('#check').html("http://" + espIp + "?ONN");
+				$.ajax({
+					url: "http://" + espIp + "?ONN",
+					type: "get",
+			    	timeout: 1000
+				});
+			});  
+		});
 			
-			var id = xml.getElementsByTagName("id")[0];
-			alert(id);
-		}
+		$(function() {
+			$("#off").click(function() {
+				$('#check').html("http://" + espIp + "?OFF");
+				$.ajax({
+					url: "http://" + espIp + "?OFF",
+					type: "get",
+			    	timeout: 1000
+				});
+			});
+		});
 		
-		
+		$(document).ready(function() {
+			setInterval(function(){
+					$.ajax({
+						url: "getRespondEsp.action",
+						type: "get",
+						dataType: "xml",
+				    	timeout: 1000,
+				    	success: function(xml) {
+				    		espIp = $(xml).find("ip").text();
+				    		espStatus = $(xml).find("status").text();
+				    		$('#status').html(espStatus);
+				    		$('#ip').html(espIp);
+						}
+					});        
+			}, 1000);
+		});
+			
 	</script>
 	
 </head>
 
 <body id="body">
-	<input type="button" onclick="on()" value=" On "/>
-	<input type="button" onclick="off()" value=" Off " />
+	<p id="status"></p>
+	<p id="ip"></p>
+	<p id="check"></p>
+	<input type="button" id="on" value=" On "/>
+	<input type="button" id="off" value=" Off " />
 </body>
 
 </html>
