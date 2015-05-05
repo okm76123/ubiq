@@ -1,0 +1,17 @@
+2015 / 5 / 4
+
+Administrator account
+
+id : ubiq@gmail.com
+
+password : 123456
+
+feature :
+	
+	1. different webpage
+
+	2. add new device button
+
+	3. delete device button
+
+	4. edit device button

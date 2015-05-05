@@ -1,5 +1,11 @@
 /action/
 /dao/
+/hibernate.cfg.xml
+/log4j.properties
 /model/
 /service/
+/struts.properties
+/struts.xml
 /util/
+/report/
+/doc/
